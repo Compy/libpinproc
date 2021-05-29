@@ -527,7 +527,7 @@ PRResult PRHardwareOpen()
     // polarity and blow fuses or fry transistors and all other sorts of badness.
 
     // We first enumerate all of the devices:
-    int numDevices = ftdi_usb_find_all(&ftdic, &devlist, FTDI_VENDOR_ID, FTDI_FT245RL_PRODUCT_ID);
+    int numDevices = 0; // ftdi_usb_find_all(&ftdic, &devlist, FTDI_VENDOR_ID, FTDI_FT245RL_PRODUCT_ID); /* DISABLE LEGACY P-ROC SUPPORT DUE TO SCORBIT CONFLICT */
     if (numDevices <=0) numDevices = ftdi_usb_find_all(&ftdic, &devlist, FTDI_VENDOR_ID, FTDI_FT240X_PRODUCT_ID);
     if (numDevices < 0) {
         PRSetLastErrorText("ftdi_usb_find_all failed: %d: %s", numDevices, ftdi_get_error_string(&ftdic));
@@ -555,7 +555,7 @@ PRResult PRHardwareOpen()
     // Don't need the device list anymore
     ftdi_list_free (&devlist);
 
-    if (((rc = (int32_t)ftdi_usb_open(&ftdic, FTDI_VENDOR_ID, FTDI_FT245RL_PRODUCT_ID)) < 0) && ((rc = (int32_t)ftdi_usb_open(&ftdic, FTDI_VENDOR_ID, FTDI_FT240X_PRODUCT_ID)) < 0))
+    if (((rc = (int32_t)ftdi_usb_open(&ftdic, FTDI_VENDOR_ID, FTDI_FT240X_PRODUCT_ID)) < 0))
     {
         PRSetLastErrorText("Unable to open ftdi device: %d: %s", rc, ftdi_get_error_string(&ftdic));
         return kPRFailure;
