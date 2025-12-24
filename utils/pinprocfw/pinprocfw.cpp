@@ -2044,13 +2044,14 @@ int verifyP3ROCImage()
 
       for (int i=0; i<64; i++)
       {
-          if (readBuffer[i] != dataBuffer[i]) return 0;
+          if (readBuffer[i] != dataBuffer[i]) return 0;    // Guess 0 means error here
       }
 
       pageAddr++;
     }
 
     XSVFDBG_PRINTF( 0, "\n\nSUCCESS - Operation completed successfully.  Cycle P3-ROC power to activate any changes.\n" );
+    return 1;   // As 0 above means error we return 1 for success - kind of odd but well
 }
 
 void writeP3ROCImage()
@@ -2140,7 +2141,7 @@ int processFile()
             return iErrorCode;
 }
 
-int checkPROCFile() {
+unsigned int checkPROCFile() {
     uint32_t checksum=0, file_checksum, file_board_id, header_checksum;
     unsigned char data;
     int i=0,file_i=0;
