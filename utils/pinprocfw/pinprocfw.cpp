@@ -2291,21 +2291,17 @@ int main( int argc, char** argv )
 
                 if (openPROC()) {
                     fprintf(stderr, "\nVerifying file contents and board compatibility...");
-                    switch (checkPROCFile()) 
-                    {
-                      case P_ROC_CHIP_ID:
-			rewind(in);        
+                    uint32_t chip_id = checkPROCFile();
+                    if (chip_id == P_ROC_CHIP_ID) {
+                        rewind(in);
                         preparePROCFile();
                         processFile();
-                        break;
-                      case P3_ROC_CHIP_ID:
-			  rewind(in);        
-                          preparePROCFile();
-                          processP3ROCFile();
-                          break;
-                      default:
-                          break;
-                     }
+                    }
+                    else if (chip_id == P3_ROC_CHIP_ID) {
+                        rewind(in);
+                        preparePROCFile();
+                        processP3ROCFile();
+                    }
                 }
             }
         }
