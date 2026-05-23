@@ -2199,7 +2199,7 @@ unsigned int checkPROCFile() {
     }
     else fprintf(stderr, "\nBoard ID verified");
     if (board_rev > max_board_rev || board_rev < min_board_rev) {
-        fprintf(stderr, "\nERROR: This image is not compatible with the P-ROC board (rev: %x)", board_id);
+        fprintf(stderr, "\nERROR: This image is not compatible with the P-ROC board (board id: %x, rev: %x) - image min,max: %x, %x", board_id, board_rev, min_board_rev, max_board_rev);
         return 0;
     }
     else fprintf(stderr, "\nBoard rev verified");
