@@ -232,4 +232,5 @@ add_executable(pinprocfw
 target_link_libraries(pinprocfw
 	pinproc
 )
+install(TARGETS pinprocfw RUNTIME DESTINATION bin)
 endif()
